@@ -1,0 +1,41 @@
+<!doctype html><html lang="pt-BR"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Sistema de RH</title><style>
+*{box-sizing:border-box}body{margin:0;background:#10243a;color:#1b2c3e;font:20px/1.5 Arial,sans-serif}.slide{display:none;position:relative;width:min(100vw,141.42vh);height:min(70.71vw,100vh);min-height:520px;margin:4vh auto;padding:8% 10%;background:#f7f5ef;flex-direction:column;justify-content:center;overflow:hidden}.slide:after{content:'';position:absolute;right:-12%;top:-28%;width:48%;height:90%;border-radius:50%;background:#b7eadc;opacity:.55}h1,h2,p,pre,ul,.label,.foot{position:relative;z-index:1}h1{font-size:clamp(44px,6vw,82px);line-height:1.04;color:#123a66;margin:12px 0}h2{font-size:clamp(30px,4vw,52px);line-height:1.12;color:#123a66;margin:12px 0 24px}.label{font-size:14px;text-transform:uppercase;letter-spacing:.15em;color:#1e65a0;font-weight:bold}.foot{position:absolute;bottom:22px;left:10%;right:10%;display:flex;justify-content:space-between;font-size:14px;color:#506174}pre{white-space:pre-wrap;background:#102c4e;color:#d9f3e8;padding:24px;border-radius:12px;font:clamp(14px,1.8vw,20px)/1.5 Consolas,monospace}.cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:white;padding:18px;border-left:5px solid #1e65a0}.controls{text-align:center;color:white;padding:10px}.controls button{padding:9px 14px;border:0;border-radius:5px;background:#2874a8;color:white}@media print{body{background:white}.slide{display:flex!important;width:100vw;height:100vh;min-height:0;margin:0;page-break-after:always}.controls{display:none}}
+</style><body>
+<section class="slide"><span class="label">Sistema Orientado a Objetos · Python</span><h1>Sistema<br>de RH</h1><p>Cadastro e consulta de funcionários por cargo.</p><p>Empresa (RH) · Integrantes: preencher · Turma: preencher</p><div class="foot"><span>Trabalho de POO</span><span>1 / 9</span></div></section>
+<section class="slide"><span class="label">01 · Contexto</span><h2>Organizar a equipe fica mais simples.</h2><div class="cards"><p class="card"><b>Problema</b><br>Registros espalhados dificultam a consulta dos dados da equipe.</p><p class="card"><b>Proposta</b><br>Cadastrar pessoas, buscar por nome/cargo e calcular bônus.</p><p class="card"><b>Escopo</b><br>Protótipo de terminal com dados mantidos em memória.</p><p class="card"><b>Cargos</b><br>Gerente, Desenvolvedor e Estagiário.</p></div><div class="foot"><span>Sistema de RH</span><span>2 / 9</span></div></section>
+<section class="slide"><span class="label">02 · Modelagem</span><h2>Uma base comum, três cargos.</h2><pre>Funcionario
+ ├── Gerente
+ ├── Desenvolvedor
+ └── Estagiario
+Empresa ◇── 0..* Funcionario
+
+Funcionario: nome, idade, salario, calcular_bonus()
+Empresa: cadastrar(), listar(), buscar()</pre><div class="foot"><span>Diagrama de classes</span><span>3 / 9</span></div></section>
+<section class="slide"><span class="label">03 · Encapsulamento</span><h2>Propriedades validam os dados.</h2><pre>@property
+def salario(self):
+    return self.__salario
+
+@salario.setter
+def salario(self, valor):
+    if valor &lt;= 0:
+        raise ValueError("Salário deve ser positivo")
+    self.__salario = float(valor)</pre><p>Nome, idade e salário têm validações para evitar valores inválidos.</p><div class="foot"><span>Dados privados na classe base</span><span>4 / 9</span></div></section>
+<section class="slide"><span class="label">04 · Herança</span><h2>As subclasses reutilizam a inicialização.</h2><pre>class Gerente(Funcionario):
+    def __init__(self, nome, idade, salario, tamanho_equipe):
+        super().__init__(nome, idade, salario)
+        self.tamanho_equipe = tamanho_equipe</pre><p>Desenvolvedor e Estagiario também herdam de Funcionario.</p><div class="foot"><span>Reuso com super()</span><span>5 / 9</span></div></section>
+<section class="slide"><span class="label">05 · Polimorfismo</span><h2>Um método, regras diferentes.</h2><pre>for funcionario in empresa.listar():
+    print(funcionario.calcular_bonus())
+
+Gerente: 20% do salário
+Desenvolvedor: 10% do salário
+Estagiário: 5% do salário</pre><div class="foot"><span>Cada classe calcula seu bônus</span><span>6 / 9</span></div></section>
+<section class="slide"><span class="label">06 · Git e GitHub</span><h2>Histórico compartilhado da equipe.</h2><p>Repositório público: inserir o link real.</p><p>Cada integrante cria commits na branch main usando sua própria conta.</p><pre>git pull → programar → git add
+→ git commit → git push</pre><div class="foot"><span>Adicionar captura real do repositório</span><span>7 / 9</span></div></section>
+<section class="slide"><span class="label">07 · Demonstração</span><h2>Menu do terminal.</h2><pre>1. Cadastrar funcionário
+2. Listar funcionários
+3. Buscar por nome/cargo
+4. Calcular bônus
+0. Sair</pre><p>Execute <b>python main.py</b> e demonstre o cadastro de dois cargos.</p><div class="foot"><span>Apresentar no PyCharm</span><span>8 / 9</span></div></section>
+<section class="slide"><span class="label">08 · Fechamento</span><h2>O que aprendemos?</h2><p>POO: encapsulamento, herança, sobrescrita e polimorfismo.</p><p>Completar com as dificuldades e aprendizados reais da equipe.</p><h2>Obrigado!</h2><div class="foot"><span>Sistema de RH</span><span>9 / 9</span></div></section>
+<div class="controls"><button onclick="window.print()">Imprimir / salvar PDF</button> Use ← → para navegar</div><script>const ss=[...document.querySelectorAll('.slide')];let n=0;function show(i){n=Math.max(0,Math.min(ss.length-1,i));ss.forEach((s,j)=>s.style.display=j===n?'flex':'none')}document.addEventListener('keydown',e=>{if(e.key==='ArrowRight')show(n+1);if(e.key==='ArrowLeft')show(n-1)});show(0)</script></body></html>
